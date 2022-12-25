@@ -32,6 +32,12 @@ echo "Installing mongodb and nginx"
 wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
 echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
 sudo apt update
+
+# Temporary fix for mongodb
+echo "deb http://security.ubuntu.com/ubuntu impish-security main" | sudo tee /etc/apt/sources.list.d/impish-security.list
+sudo apt-get update
+sudo apt-get install libssl1.1
+
 sudo apt install mongodb-org nginx -y
 echo "................................"
 
@@ -70,6 +76,10 @@ echo "................................"
 echo "Starting Cezerin"
 pm2 start process.json
 pm2 status
+
+echo "To run node commands, run: source ~/.bashrc"
+echo "To restart bash for nvm"
+
 echo "................................"
 
 echo "Thank you for using Cezerin"
